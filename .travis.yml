@@ -1,0 +1,30 @@
+language: android
+addons:
+  sonarcloud:
+    organization: storm-robotics-2729-github
+android:
+  components:
+  - tools
+  - platform-tools
+  - build-tools-28.0.3
+  - android-27
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - sys-img-x86-android-27
+  - sys-img-armeabi-v7a-android-19
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
+  - "$HOME/.sonar/cache/"
+notifications:
+  slack:
+    secure: ONIVVgh/S2e8sYRFWz4ChI42+4vH2HSGqSZdZOB5J4WHMhXjF9G8gxFu1o7ZFHvW1KFQwlDpLIVfec5FPMj10mtePeZo5msAi6bIB4O32GsGUCrM5rLb/iW6HBctUzYZi/rOYCE9w+GrT55grD35BzqE4burcXD60nKe9aoGLHNdTi8NemT3/X2HpCPzWYs8YrvLqUPliLa7DBmnBwAnPMKwVSt9eRugZAlO/jSPlrXXsS8CU1MhNOuJwy7tGOorK3eITycxrWK2xe4kIGxLsMySqaGDGYaR51wNCBk/Dg9lNsuj3vJhq8Mf/gV7Do1fzsCH/BU/OWn2/lOd+5GQhOE/ANfY8ymBstJ++nq+2xRzDaqmQ95YycipozSpjkzvPJzUaJHA2TVC68nsHR+2Jr+1irGMi3xm0NPNk6DOlEjtVMlGsgu1LbRIxRucHsT0Rq0dpcg827e4czpf5tZ/v/oOFjo7l4K39YFhzS7AT3z48KClNf95znO7xdziY6DqBHKJdHsCZsIMnBOloCnk7sZSGQTeRS9JOLVa7dJ8Jb8Ahb3vVjvFmDtMVbtHs5Q0LYbmUJPvW1cc2T8q4BQIVOEfCtf7oCY/rkln04ktw21cIz4dx1SLmnPZ9URmP27WJqq0M1MOajRgOHmpLFax+w0i6vTOGAgnLWSHlLKG7gA=
+env:
+  global:
+    secure: cWiW8WvfqXzbnR+rRkR34c5tBBw7F5cQEQD3VjqOSUAFlGswVVg/U6lnudwb6l9I5lk2mjuG6Thaj99rd9lEXdvUF1/clnZzyLl6Y/CbdwKmTQ8IlAyLRLHj57mURVoxsmR/oa7iJc0l7aVDaQWdQr2MqgUwpNsz7fUVVe1s51dzhnxwYT1QXIFYLZwfT/laO4Ca/faMywqUXcrhzGEEPqqFaw41CbwXVb99783rptvmT73Lus6gAtgKE0JpLSWl+UPmDUp+8THfmuIdMFks7gkXRORBiHCJrRdH+9LhryBv7lssa7G6saQ8upejxJSyIE7NF56i6oQN+shK0St0sIwMJz5O5jWaVAB4fCz7wbVrSTrKVeF4X1dhi1GJJNY+s9JcJeOMZg7gr7nNtEKF7Q6PT2Z3DAXjebZ/M1U4F0+C/m9hKDqV1DNmE8RZxCyrGpfkcZYuqqEF3J1wmssyqpqVIN8/Hp4CtGlwQVka6SJz9ftJcR9iNj7OALPPU48UZm2rQhcyOJVXWZVDXZOfKjPYCAd6T3NWizHPbDIDklqk50Oszw3ldisHDkij/cDHlcTC+yDLQlglAZfmNMISfIuNQSpUCCqzE5VrXOjFNzQx4nzifkAlsYGK0+B6XeRwRoG+jf9SJYN7ckW7mVQY0y22otQCsaq9IGL1gwzyBe4=
