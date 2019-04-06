@@ -2,33 +2,39 @@ language: android
 addons:
   sonarcloud:
     organization: storm-robotics-2729-github
+    token:
+      secure: Cp7FEdPXoPnY8cZ4ZamWeGw9QJAztzLUoxNxODQY6fzSbMJDF7cIrmAxicTk8yXll4aAACo3IOr1wQPgqPRmAJL193XcPBYhWEKz5CjHP6ZhFA01AXevN8zJd7JWM9Amzbkaefbh6MCkfDgsbhNDEGQgu1MGFWxhJd/J/pY/3iNqCY6ior3t2lLp7dzuBmdJqWW8IdKnlOjUfrqwt76E2oJKlYIjGayhsMAflHJinSonFUJAuUUxztXloI7lsa+iw5WnqxawAGtg9KZD76oyRiBeXF2Ux98RsWF+1GLgLoZTomUHumuvlxftL6WE8uFXhFKj7K1JB4sg5lfsx14uC/JQA2RbxmCSbKDm6Cz0ODfKcrsI8EZ9+Ng5k1LOqcfkSfG91jGELlNkepjz9VDRbRRPb9Uwdh5ky9TJcQrsYuRazZLRKv1vep2XERwSaK4T+PW6Yhnnk+qAhj8QvilLGKgNx1DwCtkunjBK7nnUwClO84/Cvnpk+cQH83K3k50PKiW8J4Vde2+BMDBNYcNYI/XWuoEqY83hT6XsUMRuWhzfrY7zuhyV8YW3acUu2Yn00JMNWlf2l9K+/UMT1+7YYSWBNWt+JOG6qhIZXi1mFeiPEGUUPA3ZrUgdPBgTCvkfvA3VzJQVMnVZ5IIayC+HR2OaJ/3Xk+tcH9SeLEUUbvo=
 android:
   components:
-  - tools
-  - platform-tools
-  - build-tools-28.0.3
-  - android-28
-  - extra-google-google_play_services
-  - extra-google-m2repository
-  - extra-android-m2repository
-  - sys-img-x86-android-28
+    - tools
+    - platform-tools
+    - build-tools-28.0.3
+    - android-19
+    - android-28
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - sys-img-armeabi-v7a-android-19
 git:
   depth: false
 before_script:
   # Create and start emulator
-  - echo no | android create avd --force -n test -t android-28
-  - emulator -avd test -no-skin -no-audio -no-window &
+  - echo no | android create avd --force -n test -t android-19
+  - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
+script:
+  - ./gradlew build connectedCheck
+  - sonar-scanner
 before_cache:
-- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
-  - "$HOME/.android/build-cache"
-  - "$HOME/.sonar/cache/"
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+    - "$HOME/.android/build-cache"
+    - "$HOME/.sonar/cache/"
 notifications:
   slack:
     secure: ONIVVgh/S2e8sYRFWz4ChI42+4vH2HSGqSZdZOB5J4WHMhXjF9G8gxFu1o7ZFHvW1KFQwlDpLIVfec5FPMj10mtePeZo5msAi6bIB4O32GsGUCrM5rLb/iW6HBctUzYZi/rOYCE9w+GrT55grD35BzqE4burcXD60nKe9aoGLHNdTi8NemT3/X2HpCPzWYs8YrvLqUPliLa7DBmnBwAnPMKwVSt9eRugZAlO/jSPlrXXsS8CU1MhNOuJwy7tGOorK3eITycxrWK2xe4kIGxLsMySqaGDGYaR51wNCBk/Dg9lNsuj3vJhq8Mf/gV7Do1fzsCH/BU/OWn2/lOd+5GQhOE/ANfY8ymBstJ++nq+2xRzDaqmQ95YycipozSpjkzvPJzUaJHA2TVC68nsHR+2Jr+1irGMi3xm0NPNk6DOlEjtVMlGsgu1LbRIxRucHsT0Rq0dpcg827e4czpf5tZ/v/oOFjo7l4K39YFhzS7AT3z48KClNf95znO7xdziY6DqBHKJdHsCZsIMnBOloCnk7sZSGQTeRS9JOLVa7dJ8Jb8Ahb3vVjvFmDtMVbtHs5Q0LYbmUJPvW1cc2T8q4BQIVOEfCtf7oCY/rkln04ktw21cIz4dx1SLmnPZ9URmP27WJqq0M1MOajRgOHmpLFax+w0i6vTOGAgnLWSHlLKG7gA=
